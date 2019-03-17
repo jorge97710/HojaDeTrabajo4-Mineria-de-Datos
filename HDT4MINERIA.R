@@ -21,7 +21,7 @@ prueba[14] <- perros5[24]
 datos<-prueba
 set.seed(123)
 
-datos$y<- as.numeric(datos$AdoptionSpeed)
+datos$y<- datos$AdoptionSpeed
 corte <- sample(nrow(datos),nrow(datos)*porcentaje)
 train<-datos[corte,]
 test<-datos[-corte,]
@@ -32,7 +32,7 @@ test<-datos[-corte,]
 #-------------------------------------------------
 
 
-fitLMPW<-lm(AdoptionSpeed~Age, data = train)
+fitLMPW<-lm(y~Age, data = train)
 
 #Estimar el lenght del p?talo a partir de su width
 #-------
@@ -100,7 +100,7 @@ cor(datos$AdoptionSpeed,datos$Age, method = "spearman")
 #ESTO SE REPITE PARA TODAS 
 
 
-fitLM1<-lm(y ~ AdoptionSpeed + Age, data = train)
+fitLM1<-lm(y ~ Sterilized + Age, data = train)
 
 summary(fitLM1)
 # Call:
@@ -141,20 +141,3 @@ s <- table(factor(test$AdoptionSpeed, a), factor(test$prediccionModeloAjustado, 
 confusionMatrix(s)
 
 #Otra Vez me da problemas, intento la misma solucion que use la vez pasada
-
-#Breed1 
-cor(datos$AdoptionSpeed,datos$Breed1, method = "spearman")
-#Breed2
-cor(datos$AdoptionSpeed,datos$Breed2, method = "spearman")
-cor(datos$AdoptionSpeed,datos$Breed2, method = "spearman")
-cor(datos$AdoptionSpeed,datos$Gender, method = "spearman")
-cor(datos$AdoptionSpeed,datos$Color1, method = "spearman")
-cor(datos$AdoptionSpeed,datos$Color2, method = "spearman")
-cor(datos$AdoptionSpeed,datos$Color3, method = "spearman")
-cor(datos$AdoptionSpeed,datos$MaturitySize, method = "spearman")
-cor(datos$AdoptionSpeed,datos$FurLength, method = "spearman")
-cor(datos$AdoptionSpeed,datos$Vaccinated, method = "spearman")
-cor(datos$AdoptionSpeed,datos$Dewormed, method = "spearman")
-cor(datos$AdoptionSpeed,datos$Sterilized, method = "spearman")
-cor(datos$AdoptionSpeed,datos$Health, method = "spearman")
-cor(datos$AdoptionSpeed,datos$y, method = "spearman")
