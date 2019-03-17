@@ -2,14 +2,14 @@ library(cluster) #Para calcular la silueta
 library(e1071)#para cmeans
 library(mclust) #mixtures of gaussians
 library(fpc) #para hacer el plotcluster
-library(NbClust) #Para determinar el número de clusters óptimo
-library(factoextra) #Para hacer gráficos bonitos de clustering
+library(NbClust) #Para determinar el n?mero de clusters ?ptimo
+library(factoextra) #Para hacer gr?ficos bonitos de clustering
 library(rpart)
 library(caret)
 library(tree)
 library(rpart.plot)
 library(randomForest)
-#Modelo de Regresión lineal
+#Modelo de Regresi?n lineal
 porcentaje<-0.7
 
 perros5 <- read.csv("train.csv")
@@ -28,33 +28,33 @@ test<-datos[-corte,]
 
 
 #-------------------------------------------------
-# Regresión Lineal Simple 
+# Regresi?n Lineal Simple 
 #-------------------------------------------------
 
 
 fitLMPW<-lm(AdoptionSpeed~Age, data = train)
 
-#Estimar el lenght del pétalo a partir de su width
+#Estimar el lenght del p?talo a partir de su width
 #-------
 predL<-predict(fitLMPW, newdata = test)
-#Verificando la predicción
+#Verificando la predicci?n
 resultados<-data.frame(test$AdoptionSpeed,predL)
 resultados$variacion<-abs(resultados$test.AdoptionSpeed-resultados$predL)
-#Sería de determinar cual es el umbral de variación permitido
+#Ser?a de determinar cual es el umbral de variaci?n permitido
 
-#Predecir la clase de la flor por la longitud del pétalo
+#Predecir la clase de la flor por la longitud del p?talo
 fitLMSpByPL<-lm(y~AdoptionSpeed, data = train)
 summary(fitLMSpByPL)
 # Multiple R-squared:  0.905,	Adjusted R-squared:  0.9041
 
-#El modelo explica los datos en un 90% la predicción debe ser buena
+#El modelo explica los datos en un 90% la predicci?n debe ser buena
 
 predMSpByPL<-predict(fitLMSpByPL,newdata = test)
 resultados1<-data.frame(test$y,round(predMSpByPL,0))
 names(resultados1)<-c("real","prediccion")
 
 
-confusionMatrix(resultados1$real,resultados1$prediccion)
+confusionMatrix(as.factor(resultados1$real), as.factor(resultados1$prediccion))
 #Otra Vez me da problemas, intento la misma solucion que use la vez pasada
 
 
@@ -66,7 +66,7 @@ confusionMatrix(t)
 #Accuracy : 1
 
 #-------------------------------------------------
-# Regresión Lineal Múltiple 
+# Regresi?n Lineal M?ltiple 
 #-------------------------------------------------
 
 fitLM<-lm(AdoptionSpeed~ Age + Breed1 + Breed2 + Gender + Color1 + Color2 + Color3 + MaturitySize + FurLength + Vaccinated + Dewormed + Sterilized + Health , data = train)
@@ -84,7 +84,7 @@ predicted<-predict(fitLM,newdata = test)
 test$prediccion <- predicted
 
 #ESTO NO ME SALE
-cfm<-confusionMatrix(test$AdoptionSpeed,test$prediccion)
+cfm<-confusionMatrix( as.factor(test$AdoptionSpeed), as.factor(test$prediccion))
 cfm
 #ESTO NO ME SALE
 #Accuracy : 1 
@@ -93,8 +93,8 @@ cfm
 
 
 cor(datos$AdoptionSpeed,datos$Age, method = "spearman")
-#La correlación es del 93% con Spearman porque las variables no siguen una distrbución normal
-#Esta correlación tan fuerte está interfiriendo en el modelo. 
+#La correlaci?n es del 93% con Spearman porque las variables no siguen una distrbuci?n normal
+#Esta correlaci?n tan fuerte est? interfiriendo en el modelo. 
 #Quitar la variable Petal.Width 
 
 #ESTO SE REPITE PARA TODAS 
@@ -123,13 +123,13 @@ summary(fitLM1)
 # Multiple R-squared:  0.9092,	Adjusted R-squared:  0.9074 
 # F-statistic: 510.6 on 2 and 102 DF,  p-value: < 2.2e-16
 
-#Ambos parámetros son significativos por lo que aportan al modelo
-#El modelo describe el  90% de los datos por lo que la predicción debe ser buena
+#Ambos par?metros son significativos por lo que aportan al modelo
+#El modelo describe el  90% de los datos por lo que la predicci?n debe ser buena
 
 pred<-predict(fitLM1,newdata = test)
 test$prediccionModeloAjustado<-round(pred,0)
 
-cfm1<-confusionMatrix(test$AdoptionSpeed, test$prediccionModeloAjustado)
+cfm1<-confusionMatrix( as.factor(test$AdoptionSpeed), as.factor(test$prediccionModeloAjustado))
 #Accuracy : 0.9333 
 
 
