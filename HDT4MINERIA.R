@@ -83,13 +83,14 @@ predicted<-predict(fitLM,newdata = test)
 
 test$prediccion <- predicted
 
+#ESTO NO ME SALE
 cfm<-confusionMatrix(test$AdoptionSpeed,test$prediccion)
 cfm
+#ESTO NO ME SALE
 #Accuracy : 1 
 #HAY SUBREAJUSTE. Esto se debe a que hay multicolinealidad en las variables participantes en el modelo
 
 
-#--------------------------------HASTA ACA LLEGUE--------------
 
 cor(datos$AdoptionSpeed,datos$Age, method = "spearman")
 #La correlación es del 93% con Spearman porque las variables no siguen una distrbución normal
