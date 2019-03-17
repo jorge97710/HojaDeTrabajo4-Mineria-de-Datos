@@ -141,3 +141,19 @@ s <- table(factor(test$AdoptionSpeed, a), factor(test$prediccionModeloAjustado, 
 confusionMatrix(s)
 
 #Otra Vez me da problemas, intento la misma solucion que use la vez pasada
+#Breed1 
+cor(datos$AdoptionSpeed,datos$Breed1, method = "spearman")
+#Breed2
+cor(datos$AdoptionSpeed,datos$Breed2, method = "spearman")
+cor(datos$AdoptionSpeed,datos$Breed2, method = "spearman")
+cor(datos$AdoptionSpeed,datos$Gender, method = "spearman")
+cor(datos$AdoptionSpeed,datos$Color1, method = "spearman")
+cor(datos$AdoptionSpeed,datos$Color2, method = "spearman")
+cor(datos$AdoptionSpeed,datos$Color3, method = "spearman")
+cor(datos$AdoptionSpeed,datos$MaturitySize, method = "spearman")
+cor(datos$AdoptionSpeed,datos$FurLength, method = "spearman")
+cor(datos$AdoptionSpeed,datos$Vaccinated, method = "spearman")
+cor(datos$AdoptionSpeed,datos$Dewormed, method = "spearman")
+cor(datos$AdoptionSpeed,datos$Sterilized, method = "spearman")
+cor(datos$AdoptionSpeed,datos$Health, method = "spearman")
+cor(datos$AdoptionSpeed,datos$y, method = "spearman") 
